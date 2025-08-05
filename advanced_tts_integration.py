@@ -13,6 +13,10 @@ import time
 from typing import Dict, List, Union, Optional, Any
 from gtts import gTTS  # Google Text-to-Speech
 import pygame  # For audio playback
+from dotenv import load_dotenv  # For loading environment variables
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Try to import pydub for audio manipulation, but provide a fallback if it fails
 try:
