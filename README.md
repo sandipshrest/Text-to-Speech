@@ -20,15 +20,138 @@ This project provides tools for integrating text-to-speech capabilities with var
 - Audio file format conversion
 - Various playback options
 
+### Gemini TTS Integration (`gemini_tts_integration.py`)
+- Uses Google's Gemini API to enhance text processing
+- Automatic fallback to Google TTS if Gemini API is unavailable
+- Improved natural language processing for better speech output
+- Detailed logging of API interactions
+- See [GEMINI_README.md](GEMINI_README.md) for Gemini-specific setup
+
 ## Requirements
 
 - Python 3.6+
 - Internet connection (for API access and Google TTS)
+- Gemini API key (for Gemini TTS features)
 
 ## Installation
 
 1. Clone this repository or download the files
 2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install required packages:
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure environment variables:
+   - Create a `.env` file in the project root
+   - Add your API credentials (see [Environment Variables](#environment-variables))
+
+## Usage
+
+### Basic Usage
+
+```python
+from tts_integration import TTSIntegration
+
+# Initialize TTS with API URL
+tts = TTSIntegration(api_url="https://api.example.com/data")
+
+# Fetch data, extract text, and convert to speech
+audio_file = tts.text_to_speech("Hello, world!")
+
+# Play the audio
+tts.play_audio(audio_file)
+```
+
+### Advanced Usage
+
+```python
+from advanced_tts_integration import AdvancedTTSIntegration
+
+# Initialize Advanced TTS
+tts = AdvancedTTSIntegration(
+    api_url="https://api.example.com/data",
+    output_dir="audio_files",
+    tts_engine="gtts",
+    audio_format="mp3"
+)
+
+# Complete pipeline: fetch, extract, convert, and play
+tts.process_pipeline(
+    method="GET",
+    headers={"Authorization": "Bearer token123"},
+    text_key="data.content",
+    output_filename="example_output",
+    lang="en",
+    auto_play=True
+)
+```
+
+### Using Gemini TTS
+
+```python
+from gemini_tts_integration import GeminiTTSIntegration
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Initialize Gemini TTS
+tts = GeminiTTSIntegration(output_dir="gemini_audio")
+
+# Convert text to speech using Gemini API
+audio_file = tts.text_to_speech(
+    text="This is processed through Gemini API for improved natural language processing.",
+    filename="gemini_example"
+)
+
+# Play the audio
+tts.play_audio(audio_file)
+```
+
+## Environment Variables
+
+Create a `.env` file with the following variables:
+
+```
+# For news API example
+NEWS_API_BASE_URL="https://your-news-api.com/api"
+NEWS_API_TOKEN="your_api_token"
+
+# For Gemini TTS integration
+GEMINI_API_KEY="your_gemini_api_key"
+```
+
+## Examples
+
+Several example scripts are provided:
+
+- `example.py`: Basic usage of TTSIntegration
+- `advanced_example.py`: Advanced usage of AdvancedTTSIntegration
+- `news_example.py`: Fetches news from API and converts to speech
+- `gemini_news_example.py`: Uses Gemini API to process news text before TTS conversion
+- `test_gemini_api.py`: Tests if your Gemini API key is valid
+
+Run any example:
+
+```bash
+python example.py
+```
+
+## Extending
+
+You can extend the integration with new TTS engines or API sources by:
+
+1. Subclassing `AdvancedTTSIntegration`
+2. Implementing your own `text_to_speech` method
+3. Adding any additional functionality needed
+
+See `gemini_tts_integration.py` for an example of extending the base functionality.
    ```bash
    python -m venv venv
    ```
