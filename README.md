@@ -27,6 +27,13 @@ This project provides tools for integrating text-to-speech capabilities with var
 - Detailed logging of API interactions
 - See [GEMINI_README.md](GEMINI_README.md) for Gemini-specific setup
 
+### API Server (`tts_api_server.py`)
+- RESTful API for news article text-to-speech conversion
+- Endpoint to get audio for a specific news ID
+- Serving of generated audio files
+- Health check and monitoring
+- See [API_README.md](API_README.md) for API-specific documentation
+
 ## Requirements
 
 - Python 3.6+
@@ -136,11 +143,32 @@ Several example scripts are provided:
 - `news_example.py`: Fetches news from API and converts to speech
 - `gemini_news_example.py`: Uses Gemini API to process news text before TTS conversion
 - `test_gemini_api.py`: Tests if your Gemini API key is valid
+- `tts_api_server.py`: Runs a RESTful API server for news audio conversion
+- `test_api_client.py`: Tests the API server endpoints
 
 Run any example:
 
 ```bash
 python example.py
+```
+
+### API Server Example
+
+Start the API server:
+
+```bash
+python tts_api_server.py
+```
+
+Then request audio for a news article:
+
+```bash
+python test_api_client.py --news-id 123
+```
+
+Or test from a web browser by navigating to:
+```
+http://localhost:5000/api/news-audio/123
 ```
 
 ## Extending
